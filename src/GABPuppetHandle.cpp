@@ -10,13 +10,14 @@
 #include "GABPuppetHandle.h"
 
 GABPuppetHandle::GABPuppetHandle() {
-	GABPuppetHandle(ofxVec3f(1,1,1)); 
+	GABPuppetHandle(GABPuppetHandleTarget(), ofxVec3f(1,1,1)); 
 }
 
-GABPuppetHandle::GABPuppetHandle(ofxVec3f _scalingFactor) {
+GABPuppetHandle::GABPuppetHandle(GABPuppetHandleTarget _target, ofxVec3f _scalingFactor) {
 	jointPosition.x = jointPosition.y = jointPosition.z = 0;
   bInitialSet = false;
   scalingFactor = _scalingFactor;
+  target = target;
 }
 
 
@@ -36,4 +37,29 @@ ofxVec3f GABPuppetHandle::getDisplacement(){
   result.y = (initialJointPosition.y - jointPosition.y) * scalingFactor.y;
   result.z = (initialJointPosition.z - jointPosition.z) * scalingFactor.z;
   return result;
+}
+
+
+GABPuppetHandleTarget::GABPuppetHandleTarget(){
+  GABPuppetHandleTarget(ofPoint(0,0,0), ofPoint(100,100,100));
+}
+
+GABPuppetHandleTarget::GABPuppetHandleTarget(ofPoint _nearPoint, ofPoint _farPoint){
+  nearPoint = _nearPoint;
+  farPoint = _farPoint;
+}
+
+bool GABPuppetHandleTarget::includes( ofPoint p ){
+
+  bool r = false;
+  
+  if(p.x > nearPoint.x && p.x < farPoint.x){
+    if(p.y > nearPoint.y && p.y < farPoint.y){
+      if(p.z > nearPoint.z && p.z < farPoint.z){
+        r = true;
+      }
+    }
+  }
+  
+  return r;
 }

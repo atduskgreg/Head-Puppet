@@ -7,6 +7,18 @@
  *
  */
 #include "ofxVec3f.h"
+#include "ofx3dGraphics.h"
+
+class GABPuppetHandleTarget {
+public:
+  ofPoint nearPoint;
+  ofPoint farPoint;
+  
+  GABPuppetHandleTarget();
+  GABPuppetHandleTarget(ofPoint _nearPoint, ofPoint _farPoint);
+  
+  bool includes( ofPoint p );
+};
 
 class GABPuppetHandle {
   public:
@@ -14,15 +26,18 @@ class GABPuppetHandle {
     ofxVec3f jointPosition;
     GABPuppetHandle();
   
-    GABPuppetHandle(ofxVec3f _scalingFactor);
+    GABPuppetHandle(GABPuppetHandleTarget _target, ofxVec3f _scalingFactor);
   
     void setPosition(ofxVec3f pos);
   
     ofxVec3f getDisplacement();
   
+    
+    GABPuppetHandleTarget target;
     ofxVec3f scalingFactor;
 
   private:
     ofxVec3f initialJointPosition;
     bool  bInitialSet;
 };
+

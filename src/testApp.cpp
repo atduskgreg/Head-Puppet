@@ -10,9 +10,6 @@
 //GLfloat red[] = { 1.0, 0.3, 0.4, 0.5 };
 //GLfloat white[] = {0.5, 0.5, 0.5, 0.7};
 
-int rightEyeMinX = 0;
-int rightEyeMinY = -25;
-int rightEyeMinZ = 100;
 
 
 void testApp::setup(){
@@ -37,11 +34,9 @@ void testApp::setup(){
   vid.initGrabber(camWidth, camHeight);
   
   ofxVec3f scaleBy = ofxVec3f(ofGetWidth() / 8, ofGetHeight() / 8, 200 / 8);
-  rHand = GABPuppetHandle(scaleBy);
   
-  //tracking = false;
-  
-
+  rEyebrow = GABPuppetHandleTarget( ofPoint(0, -25, 100), ofPoint(50, 25, 150) );
+  rHand = GABPuppetHandle(rEyebrow, scaleBy);
 
   /*const GLfloat light0Ambient[] = {0.05, 0.05, 0.05, 1.0};
   glLightfv(GL_LIGHT0, GL_AMBIENT, light0Ambient);
@@ -63,9 +58,7 @@ void testApp::setup(){
   glLightf(GL_LIGHT0, GL_SPOT_CUTOFF, 45.0);
   glShadeModel(GL_SMOOTH);
    */
-  
-  //rHand.x = rHand.y = rHand.z = lHand.x = lHand.y = lHand.z = 0;
-  
+    
   
   // reference is the undistorted model we iterate through
   // model is the one we actually distort
@@ -96,15 +89,6 @@ void testApp::processOSC(){
     if ( m.getAddress() == "/joint" ){
       if(m.getArgAsString(0) == "r_hand"){
         rHand.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
-        
-        /*rHand.x = m.getArgAsFloat(2) * ofGetWidth();
-        rHand.y = m.getArgAsFloat(3) * ofGetHeight();
-        rHand.z = m.getArgAsFloat(4) * 200;
-        if(!tracking){
-          rHandInitial = rHand;
-          tracking = true;
-        }
-         */
       }
       
       if(m.getArgAsString(0) == "l_hand"){
@@ -172,7 +156,13 @@ void testApp::update(){
     vector<ofPoint>& refPoints = refFaces[j]->points;
     
     for(int i =0; i < points.size(); i++){
-      if(refPoints[i].x > rightEyeMinX && refPoints[i].x < (rightEyeMinX + 50)){
+      if(rEyebrow.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + rHand.getDisplacement().x;
+        points[i].y = refPoints[i].y + rHand.getDisplacement().y;
+        points[i].z = refPoints[i].z + rHand.getDisplacement().z;
+        
+      }
+      /*if(refPoints[i].x > rightEyeMinX && refPoints[i].x < (rightEyeMinX + 50)){
         if(refPoints[i].y > rightEyeMinY && refPoints[i].y < (rightEyeMinY + 50)){
           if(refPoints[i].z > rightEyeMinZ && refPoints[i].z < (rightEyeMinZ + 50)){
 
@@ -183,6 +173,7 @@ void testApp::update(){
           }
         }
       }
+      */
     }
   }
   
@@ -191,7 +182,7 @@ void testApp::update(){
 
 void drawRightEyeBox(){
   int boxSize = 50;
-
+/*
    glBegin(GL_QUADS);
       glVertex3f(0, -25, 150);
       glVertex3f(50, -25, 150);
@@ -221,7 +212,7 @@ void drawRightEyeBox(){
 
       glVertex3f(rightEyeMinX, rightEyeMinY + boxSize, rightEyeMinZ);
     glEnd;
-
+*/
   
   
 }

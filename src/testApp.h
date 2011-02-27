@@ -11,6 +11,7 @@
 #include "ofxOBJModel.h"
 #include "ofxOsc.h"
 #include "ofxVec3f.h"
+#include "ofx3dGraphics.h"
 #include "GABPuppetHandle.h"
 
 #define PORT 59907
@@ -36,7 +37,10 @@ class testApp : public ofBaseApp{
     ofxOBJModel reference;
   
     GABPuppetHandle rHand;
+    GABPuppetHandleTarget rEyebrow;
+  
     GABPuppetHandle lHand;
+    
     /*
     ofxVec3f rHand;
     ofxVec3f lHand;

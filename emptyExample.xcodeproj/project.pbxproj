@@ -18,6 +18,7 @@
 		37BE897D131869D600A2D3A2 /* ofxOscReceiver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BE8976131869D600A2D3A2 /* ofxOscReceiver.cpp */; };
 		37BE897E131869D600A2D3A2 /* ofxOscSender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BE8978131869D600A2D3A2 /* ofxOscSender.cpp */; };
 		37BE8A39131AD8D700A2D3A2 /* GABPuppetHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BE8A38131AD8D700A2D3A2 /* GABPuppetHandle.cpp */; };
+		37BE8A99131AEB1700A2D3A2 /* ofx3dGraphics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 37BE8A97131AEB1700A2D3A2 /* ofx3dGraphics.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -134,6 +135,8 @@
 		37BE8979131869D600A2D3A2 /* ofxOscSender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofxOscSender.h; path = ../../../addons/ofxOsc/src/ofxOscSender.h; sourceTree = SOURCE_ROOT; };
 		37BE8A37131AD8D700A2D3A2 /* GABPuppetHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GABPuppetHandle.h; sourceTree = "<group>"; };
 		37BE8A38131AD8D700A2D3A2 /* GABPuppetHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GABPuppetHandle.cpp; sourceTree = "<group>"; };
+		37BE8A97131AEB1700A2D3A2 /* ofx3dGraphics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofx3dGraphics.cpp; path = src/ofx3dGraphics.cpp; sourceTree = SOURCE_ROOT; };
+		37BE8A98131AEB1700A2D3A2 /* ofx3dGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofx3dGraphics.h; path = src/ofx3dGraphics.h; sourceTree = SOURCE_ROOT; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -568,6 +571,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				37BE8A97131AEB1700A2D3A2 /* ofx3dGraphics.cpp */,
+				37BE8A98131AEB1700A2D3A2 /* ofx3dGraphics.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
@@ -750,6 +755,7 @@
 				37BE897D131869D600A2D3A2 /* ofxOscReceiver.cpp in Sources */,
 				37BE897E131869D600A2D3A2 /* ofxOscSender.cpp in Sources */,
 				37BE8A39131AD8D700A2D3A2 /* GABPuppetHandle.cpp in Sources */,
+				37BE8A99131AEB1700A2D3A2 /* ofx3dGraphics.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
