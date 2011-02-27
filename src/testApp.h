@@ -36,18 +36,26 @@ class testApp : public ofBaseApp{
     ofxOBJModel model;
     ofxOBJModel reference;
   
+  
+    // "r" and "l" here refer to screen left and right
     GABPuppetHandle rHand;
     GABPuppetHandleTarget rEyebrow;
   
     GABPuppetHandle lHand;
     GABPuppetHandleTarget lEyebrow;
+  
+    GABPuppetHandle lKnee;
+    GABPuppetHandleTarget lMouth;
+  
+    GABPuppetHandle rKnee;
+    GABPuppetHandleTarget rMouth;
+  
+    GABPuppetHandle head;
+    GABPuppetHandleTarget forehead;
     
-    /*
-    ofxVec3f rHand;
-    ofxVec3f lHand;
-    ofxVec3f rHandInitial;
-    bool tracking;
-    */
+    GABPuppetHandle rElbow;
+    GABPuppetHandleTarget rCheek;
+  
      
     int r;
     bool bRotating;

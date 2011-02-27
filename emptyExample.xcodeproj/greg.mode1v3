@@ -329,7 +329,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>37BE8B18131AF74000A2D3A2</string>
+										<string>37BE8BD3131B0B9200A2D3A2</string>
 										<key>history</key>
 										<array>
 											<string>37BE856313160D7800A2D3A2</string>
@@ -340,10 +340,10 @@
 											<string>37BE8AA6131AEF0000A2D3A2</string>
 											<string>37BE8AA9131AEF0000A2D3A2</string>
 											<string>37BE8AB9131AF1EC00A2D3A2</string>
-											<string>37BE8AD4131AF42600A2D3A2</string>
-											<string>37BE8AD5131AF42600A2D3A2</string>
-											<string>37BE8ADB131AF46200A2D3A2</string>
-											<string>37BE8ADC131AF46200A2D3A2</string>
+											<string>37BE8B42131AFA9100A2D3A2</string>
+											<string>37BE8B63131AFDA300A2D3A2</string>
+											<string>37BE8BA9131B0A0D00A2D3A2</string>
+											<string>37BE8BAA131B0A0D00A2D3A2</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -541,12 +541,11 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>37BE8B19131AF74000A2D3A2</string>
 		<string>37BE84A21315F98F00A2D3A2</string>
 		<string>37BE84A31315F98F00A2D3A2</string>
 		<string>1CD10A99069EF8BA00B06720</string>
-		<string>1C78EAAD065D492600B07095</string>
 		<string>37BE83D01315C99900A2D3A2</string>
+		<string>1C78EAAD065D492600B07095</string>
 		<string>/Users/greg/Desktop/of_preRelease_v0062_osxSL_FAT/apps/mine/emptyExample/emptyExample.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -566,8 +565,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -590,6 +587,8 @@
 							<string>333pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -642,7 +641,7 @@
 			<key>WindowToolGUID</key>
 			<string>37BE83D01315C99900A2D3A2</string>
 			<key>WindowToolIsVisible</key>
-			<true/>
+			<false/>
 		</dict>
 		<dict>
 			<key>FirstTimeWindowDisplayed</key>

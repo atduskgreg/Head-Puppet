@@ -21,7 +21,7 @@ void testApp::setup(){
   // SETUP APP RECORDER ===============
   fullAppBuffer.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
   
-  r = 0;
+  r = 180;
   bRotating = false;
   
   ofBackground(255,255,255);
@@ -35,11 +35,24 @@ void testApp::setup(){
   
   ofxVec3f scaleBy = ofxVec3f(ofGetWidth() / 8, ofGetHeight() / 8, 200 / 8);
   
+  forehead = GABPuppetHandleTarget( ofPoint(-25, 40, 100), ofPoint(25, 65, 150)  );
+  head = GABPuppetHandle(forehead, scaleBy);
+  
   rEyebrow = GABPuppetHandleTarget( ofPoint(0, 10, 100), ofPoint(100, 35, 150) );
   rHand = GABPuppetHandle(rEyebrow, scaleBy);
   
   lEyebrow = GABPuppetHandleTarget( ofPoint(-100, 0, 100), ofPoint(0, 25, 150) );
   lHand = GABPuppetHandle(lEyebrow, scaleBy);
+  
+  rMouth = GABPuppetHandleTarget( ofPoint(25, -115, 100), ofPoint(50, -75, 150) );
+  rKnee = GABPuppetHandle(rMouth, scaleBy);
+  
+  lMouth = GABPuppetHandleTarget( ofPoint(-50, -115, 100), ofPoint(-25, -75, 150) );
+  lKnee = GABPuppetHandle(lMouth, scaleBy);
+  
+  rCheek = GABPuppetHandleTarget( ofPoint(40, -45, 100), ofPoint(70, -25, 150) );
+  rElbow = GABPuppetHandle(rCheek, scaleBy);
+
 
   /*const GLfloat light0Ambient[] = {0.05, 0.05, 0.05, 1.0};
   glLightfv(GL_LIGHT0, GL_AMBIENT, light0Ambient);
@@ -98,6 +111,23 @@ void testApp::processOSC(){
         lHand.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
       }
       
+      if(m.getArgAsString(0) == "l_knee"){
+        lKnee.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
+      }
+      
+      if(m.getArgAsString(0) == "r_knee"){
+        rKnee.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
+      }
+
+      if(m.getArgAsString(0) == "head"){
+        head.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
+      }
+      
+      if(m.getArgAsString(0) == "r_elbow"){
+        rElbow.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
+      }
+      
+      
       
     } else {
 			// unrecognized message: display on the bottom of the screen
@@ -142,10 +172,9 @@ void testApp::update(){
   }
   
   
-  //ofxVec3f handDistance = rHandInitial - rHand;
-  ofxVec3f handDistance = rHand.getDisplacement();
+  ofxVec3f logDistance = lHand.getDisplacement();
   
-  cout << "handDistance x: " << handDistance.x << " y: " << handDistance.y << " z: " << handDistance.z << endl;
+  //cout << "handDistance x: " << logDistance.x << " y: " << logDistance.y << " z: " << logDistance.z << endl;
   
   // process face vertices
   
@@ -161,57 +190,41 @@ void testApp::update(){
         points[i].x = refPoints[i].x + rHand.getDisplacement().x;
         points[i].y = refPoints[i].y + rHand.getDisplacement().y;
         points[i].z = refPoints[i].z + rHand.getDisplacement().z;
-        
       }
 
       if(lEyebrow.includes(refPoints[i])){
         points[i].x = refPoints[i].x + lHand.getDisplacement().x;
         points[i].y = refPoints[i].y + lHand.getDisplacement().y;
         points[i].z = refPoints[i].z + lHand.getDisplacement().z;
-        
+      }
+      
+      if(lMouth.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + lKnee.getDisplacement().x;
+        points[i].y = refPoints[i].y + lKnee.getDisplacement().y;
+        points[i].z = refPoints[i].z + lKnee.getDisplacement().z;
+      }
+      
+      if(rMouth.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + rKnee.getDisplacement().x;
+        points[i].y = refPoints[i].y + rKnee.getDisplacement().y;
+        points[i].z = refPoints[i].z + rKnee.getDisplacement().z;
+      }
+      
+      if(forehead.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + head.getDisplacement().x;
+        points[i].y = refPoints[i].y + head.getDisplacement().y;
+        points[i].z = refPoints[i].z + head.getDisplacement().z;
+      }
+      
+      if(rCheek.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + rElbow.getDisplacement().x;
+        points[i].y = refPoints[i].y + rElbow.getDisplacement().y;
+        points[i].z = refPoints[i].z + rElbow.getDisplacement().z;
       }
       
     
     }
   }
-  
-}
-
-
-void drawRightEyeBox(){
-  int boxSize = 50;
-/*
-   glBegin(GL_QUADS);
-      glVertex3f(0, -25, 150);
-      glVertex3f(50, -25, 150);
-      glVertex3f(50, 25, 150);
-      glVertex3f(0, 25, 150);
-  
-      glVertex3f(0, -25, 100);
-      glVertex3f(50, -25, 100);
-      glVertex3f(50, 25, 100);
-      glVertex3f(0, 25, 100);
-  
-
-    
-      glVertex3f(0, -25, 150);
-      glVertex3f(50, -25, 150);
-      glVertex3f(0, -25, 100);
-      glVertex3f(50, -25, 100);
-
-      glVertex3f(0, 25, 150);
-      glVertex3f(50, 25, 150);
-      glVertex3f(0, 25, 100);
-      glVertex3f(50, 25, 100);
-  
-      glVertex3f(rightEyeMinX, rightEyeMinY, rightEyeMinZ);
-      glVertex3f(rightEyeMinX, rightEyeMinY, rightEyeMinZ + boxSize);
-      glVertex3f(rightEyeMinX, rightEyeMinY + boxSize, rightEyeMinZ + boxSize);
-
-      glVertex3f(rightEyeMinX, rightEyeMinY + boxSize, rightEyeMinZ);
-    glEnd;
-*/
-  
   
 }
 
@@ -233,9 +246,14 @@ void testApp::draw(){
       r++;  
     }
   
+    
     ofSetColor(0, 255, 0);
     lEyebrow.draw();
     rEyebrow.draw();
+    lMouth.draw();
+    rMouth.draw();
+    forehead.draw();
+    rCheek.draw();
   
     ofSetColor(255, 255, 255);
     model.draw();
