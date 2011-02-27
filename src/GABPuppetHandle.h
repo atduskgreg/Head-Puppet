@@ -16,7 +16,8 @@ public:
   
   GABPuppetHandleTarget();
   GABPuppetHandleTarget(ofPoint _nearPoint, ofPoint _farPoint);
-  
+  void draw();
+
   bool includes( ofPoint p );
 };
 

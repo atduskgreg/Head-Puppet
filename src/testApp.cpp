@@ -35,8 +35,11 @@ void testApp::setup(){
   
   ofxVec3f scaleBy = ofxVec3f(ofGetWidth() / 8, ofGetHeight() / 8, 200 / 8);
   
-  rEyebrow = GABPuppetHandleTarget( ofPoint(0, -25, 100), ofPoint(50, 25, 150) );
+  rEyebrow = GABPuppetHandleTarget( ofPoint(0, 10, 100), ofPoint(100, 35, 150) );
   rHand = GABPuppetHandle(rEyebrow, scaleBy);
+  
+  lEyebrow = GABPuppetHandleTarget( ofPoint(-100, 0, 100), ofPoint(0, 25, 150) );
+  lHand = GABPuppetHandle(lEyebrow, scaleBy);
 
   /*const GLfloat light0Ambient[] = {0.05, 0.05, 0.05, 1.0};
   glLightfv(GL_LIGHT0, GL_AMBIENT, light0Ambient);
@@ -92,9 +95,7 @@ void testApp::processOSC(){
       }
       
       if(m.getArgAsString(0) == "l_hand"){
-        /*lHand.x = m.getArgAsFloat(2) * ofGetWidth();
-        lHand.y = m.getArgAsFloat(3) * ofGetHeight();
-        lHand.z = m.getArgAsFloat(4) * 200;*/
+        lHand.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
       }
       
       
@@ -162,18 +163,15 @@ void testApp::update(){
         points[i].z = refPoints[i].z + rHand.getDisplacement().z;
         
       }
-      /*if(refPoints[i].x > rightEyeMinX && refPoints[i].x < (rightEyeMinX + 50)){
-        if(refPoints[i].y > rightEyeMinY && refPoints[i].y < (rightEyeMinY + 50)){
-          if(refPoints[i].z > rightEyeMinZ && refPoints[i].z < (rightEyeMinZ + 50)){
 
-            points[i].x = refPoints[i].x + handDistance.x;
-            points[i].y = refPoints[i].y + handDistance.y;
-            points[i].z = refPoints[i].z + handDistance.z ;
-            
-          }
-        }
+      if(lEyebrow.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + lHand.getDisplacement().x;
+        points[i].y = refPoints[i].y + lHand.getDisplacement().y;
+        points[i].z = refPoints[i].z + lHand.getDisplacement().z;
+        
       }
-      */
+      
+    
     }
   }
   
@@ -235,9 +233,11 @@ void testApp::draw(){
       r++;  
     }
   
-    ofSetColor(255, 255, 255);
+    ofSetColor(0, 255, 0);
+    lEyebrow.draw();
+    rEyebrow.draw();
   
-
+    ofSetColor(255, 255, 255);
     model.draw();
     
 

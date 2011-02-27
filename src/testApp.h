@@ -40,6 +40,7 @@ class testApp : public ofBaseApp{
     GABPuppetHandleTarget rEyebrow;
   
     GABPuppetHandle lHand;
+    GABPuppetHandleTarget lEyebrow;
     
     /*
     ofxVec3f rHand;

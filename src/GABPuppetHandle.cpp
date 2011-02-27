@@ -49,6 +49,10 @@ GABPuppetHandleTarget::GABPuppetHandleTarget(ofPoint _nearPoint, ofPoint _farPoi
   farPoint = _farPoint;
 }
 
+void GABPuppetHandleTarget::draw(){
+  ofBox(nearPoint, farPoint);
+}
+
 bool GABPuppetHandleTarget::includes( ofPoint p ){
 
   bool r = false;
