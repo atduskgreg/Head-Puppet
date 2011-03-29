@@ -17,23 +17,24 @@ void testApp::setup(){
   cout << "listening for osc messages on port " << PORT << "\n";
 	receiver.setup( PORT );  
 	current_msg_string = 0;
-  
+  ofSetFrameRate(30);
   // SETUP APP RECORDER ===============
   fullAppBuffer.allocate(ofGetWidth(), ofGetHeight(), OF_IMAGE_COLOR);
   
   r = 180;
   bRotating = false;
   
-  ofBackground(255,255,255);
+  ofBackground(0,255,0);
   ofSetFrameRate(30);
 	ofSetVerticalSync(true);
   
   camWidth = 320;
   camHeight = 240;
-  vid.setVerbose(true);
-  vid.initGrabber(camWidth, camHeight);
+  //vid.setVerbose(true);
+  //vid.initGrabber(camWidth, camHeight);
   
-  ofxVec3f scaleBy = ofxVec3f(ofGetWidth() / 8, ofGetHeight() / 8, 200 / 8);
+  ofxVec3f scaleBy = ofxVec3f(ofGetWidth() / 12, ofGetHeight() / 12, 200 / 12);
+  ofxVec3f scaleInvertedY = ofxVec3f(ofGetWidth() / 12, (ofGetHeight() / 12) * -1, 200 / 12);
   
   forehead = GABPuppetHandleTarget( ofPoint(-25, 40, 100), ofPoint(25, 65, 150)  );
   head = GABPuppetHandle(forehead, scaleBy);
@@ -47,11 +48,14 @@ void testApp::setup(){
   rMouth = GABPuppetHandleTarget( ofPoint(25, -115, 100), ofPoint(50, -75, 150) );
   rKnee = GABPuppetHandle(rMouth, scaleBy);
   
-  lMouth = GABPuppetHandleTarget( ofPoint(-50, -115, 100), ofPoint(-25, -75, 150) );
+  lMouth = GABPuppetHandleTarget( ofPoint(-40, -115, 100), ofPoint(-15, -75, 150) );
   lKnee = GABPuppetHandle(lMouth, scaleBy);
   
-  rCheek = GABPuppetHandleTarget( ofPoint(40, -45, 100), ofPoint(70, -25, 150) );
-  rElbow = GABPuppetHandle(rCheek, scaleBy);
+  rCheek = GABPuppetHandleTarget( ofPoint(40, -75, 100), ofPoint(70, -35, 150) );
+  rElbow = GABPuppetHandle(rCheek, scaleInvertedY);
+
+  lCheek = GABPuppetHandleTarget( ofPoint(-50, -75, 100), ofPoint(-25, -35, 150) );
+  lElbow = GABPuppetHandle(lCheek, scaleInvertedY);
 
 
   /*const GLfloat light0Ambient[] = {0.05, 0.05, 0.05, 1.0};
@@ -127,6 +131,10 @@ void testApp::processOSC(){
         rElbow.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
       }
       
+      if(m.getArgAsString(0) == "l_elbow"){
+        lElbow.setPosition(ofxVec3f(m.getArgAsFloat(2), m.getArgAsFloat(3), m.getArgAsFloat(4)));
+      }
+      
       
       
     } else {
@@ -165,10 +173,10 @@ void testApp::processOSC(){
 void testApp::update(){
   processOSC();
   
-  vid.grabFrame();
+  //vid.grabFrame();
   
 	if (bRecording == true){
-		saver.addFrame(fullAppBuffer.getPixels(), 1.0f / 30.0f); 
+		saver.addFrame(fullAppBuffer.getPixels(), 1.0f / ofGetFrameRate()); 
   }
   
   
@@ -222,6 +230,12 @@ void testApp::update(){
         points[i].z = refPoints[i].z + rElbow.getDisplacement().z;
       }
       
+      if(lCheek.includes(refPoints[i])){
+        points[i].x = refPoints[i].x + lElbow.getDisplacement().x;
+        points[i].y = refPoints[i].y + lElbow.getDisplacement().y;
+        points[i].z = refPoints[i].z + lElbow.getDisplacement().z;
+      }
+      
     
     }
   }
@@ -254,7 +268,9 @@ void testApp::draw(){
     rMouth.draw();
     forehead.draw();
     rCheek.draw();
-  
+    lCheek.draw();
+    
+    
     ofSetColor(255, 255, 255);
     model.draw();
     
@@ -268,7 +284,7 @@ void testApp::draw(){
   glPopMatrix();
   
   ofSetColor(0xffffff);
-  vid.draw(0, ofGetHeight() - 240);
+  //vid.draw(0, ofGetHeight() - 240);
   
   // ALWAYS LEAVE THIS LAST:
   if(bRecording == true){
@@ -283,7 +299,7 @@ void testApp::keyPressed (int key) {
   }
   
   if (key == 'a'){
-		saver.setup(ofGetWidth(),ofGetHeight(),"floating_transparent_head.mov");
+		saver.setup(ofGetWidth(),ofGetHeight(),"floating_transparent_head2.mov");
 	} else if (key == 's'){
 		saver.finishMovie();
 		bRecording = false;

@@ -56,6 +56,9 @@ class testApp : public ofBaseApp{
     GABPuppetHandle rElbow;
     GABPuppetHandleTarget rCheek;
   
+    GABPuppetHandle lElbow;
+    GABPuppetHandleTarget lCheek;
+  
      
     int r;
     bool bRotating;
